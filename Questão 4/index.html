@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de IMC | Trabalho Simone</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+            background-color: #eee;
+        }
+        
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid gray;
+        }
+
+        button {
+            background-color: blue;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: darkblue;
+        }
+
+        #resultado {
+            margin-top: 20px;
+            padding: 10px;
+            display: none;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Veja seu IMC</h2>
+        
+        <div>
+            <label for="peso">Qual seu peso? (kg)</label>
+            <input type="number" id="peso" placeholder="Exemplo: 70.5" required>
+        </div>
+
+        <div>
+            <label for="altura">Qual sua altura? (m)</label>
+            <input type="number" id="altura" placeholder="Exemplo: 1.75" required>
+        </div>
+
+        <button onclick="calcularIMC()">Calcular Agora!</button>
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        function calcularIMC() {
+            let peso = parseFloat(document.getElementById('peso').value);
+            let altura = parseFloat(document.getElementById('altura').value);
+            let telaResultado = document.getElementById('resultado');
+
+            if (peso && altura) {
+                let imc = peso / (altura * altura);
+                let mensagem = '';
+                let corFundo = '';
+
+                if (imc < 18.5) {
+                    mensagem = 'Você está abaixo do peso ideal';
+                    corFundo = 'yellow';
+                } else if (imc < 25) {
+                    mensagem = 'Seu peso está show!';
+                    corFundo = 'lightgreen';
+                } else if (imc < 30) {
+                    mensagem = 'Você está um pouquinho acima do peso';
+                    corFundo = 'orange';
+                } else {
+                    mensagem = 'Cuidado! Você está muito acima do peso';
+                    corFundo = 'red';
+                }
+
+                telaResultado.style.display = 'block';
+                telaResultado.style.backgroundColor = corFundo;
+                telaResultado.innerHTML = `Seu IMC é ${imc.toFixed(1)}<br>${mensagem}`;
+            } else {
+                telaResultado.style.display = 'block';
+                telaResultado.style.backgroundColor = 'red';
+                telaResultado.innerHTML = 'Ei! Preciso do seu peso e altura pra calcular!';
+            }
+        }
+    </script>
+</body>
+</html>
